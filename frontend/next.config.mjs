@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    ignoreLintErrors: true,
+    eslint: {
+        ignoreDuringBuilds: true,
+    }
 };
 
 export default nextConfig;

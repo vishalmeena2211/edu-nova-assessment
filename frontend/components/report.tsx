@@ -161,8 +161,8 @@ export default function ReportsForm() {
                                         <Calendar
                                             mode="single"
                                             selected={dateRange.from}
-                                            
-                                            onSelect={(date) => setDateRange((prev) => ({ ...prev, from: date }))}
+
+                                            onSelect={(date) => setDateRange((prev) => ({ ...prev, from: date || prev.from }))} // Set start date
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -177,7 +177,7 @@ export default function ReportsForm() {
                                         <Calendar
                                             mode="single"
                                             selected={dateRange.to}
-                                            onSelect={(date) => setDateRange((prev) => ({ ...prev, to: date }))} // Set end date
+                                            onSelect={(date) => setDateRange((prev) => ({ ...prev, to: date || prev.to }))} // Set end date
                                             initialFocus
                                         />
                                     </PopoverContent>
