@@ -1,5 +1,4 @@
-"use server"
-
+"use client"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import axios from "axios"
@@ -7,7 +6,7 @@ import { User } from "@/lib/types";
 import { userEndpoints } from "@/lib/endpoints";
 import { useEffect, useState } from "react";
 
-export default async function AllUsersTable() {
+export default function AllUsersTable() {
 
     const [users, setUsers] = useState<User[]>([]);
     useEffect(() => {
