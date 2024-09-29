@@ -1,5 +1,5 @@
 // const BASE_URL = process.env.API_BASE_URL;
-const BASE_URL = "http://localhost:5000/api/v1";
+const BASE_URL = "https://edu-nova-assessment.onrender.com/api/v1";
 
 // Book Endpoints
 export const bookEndpoints = {
