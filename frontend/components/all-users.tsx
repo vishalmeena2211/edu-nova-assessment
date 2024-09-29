@@ -5,16 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import axios from "axios"
 import { User } from "@/lib/types";
 import { userEndpoints } from "@/lib/endpoints";
+import { useEffect, useState } from "react";
 
 export default async function AllUsersTable() {
 
-    // Fetch user data from the API
-    const data = await axios.get(userEndpoints.GET_USERS);
+    const [users, setUsers] = useState<User[]>([]);
+    useEffect(() => {
+        async function fetchUsers() {
+            const response = await axios.get(userEndpoints.GET_USERS);
+            setUsers(response
+                .data);
+        }
+        fetchUsers();
+    }, []);
 
-    // Extract users from the response
-    const users: User[] = data.data;
-
-    // Render the table with user data
     return (
         <Card>
             <CardHeader>
@@ -31,7 +35,7 @@ export default async function AllUsersTable() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {users.map((user, index) => (
+                        {users?.map((user, index) => (
                             <TableRow key={user._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>{user.name}</TableCell>
