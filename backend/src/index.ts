@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN
+    origin: 'https://edu-nova-assessment.vercel.app'
 }));
 
 app.use(express.json());
