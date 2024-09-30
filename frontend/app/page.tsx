@@ -63,7 +63,7 @@ export default function Page() {
             Reports
           </TabsTrigger>
         </TabsList>
-        <div className="max-w-2xl mx-auto w-full md:my-12">
+        <div className="max-w-2xl mx-auto w-full md:py-12">
           <TabsContent value="all-books">
             <AllBooksTable />
           </TabsContent>

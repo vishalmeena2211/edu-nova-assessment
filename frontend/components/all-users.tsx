@@ -11,9 +11,12 @@ export default function AllUsersTable() {
     const [users, setUsers] = useState<User[]>([]);
     useEffect(() => {
         async function fetchUsers() {
-            const response = await axios.get(userEndpoints.GET_USERS);
-            setUsers(response
-                .data);
+            try {
+                const response = await axios.get(userEndpoints.GET_USERS);
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Failed to fetch users:', error);
+            }
         }
         fetchUsers();
     }, []);

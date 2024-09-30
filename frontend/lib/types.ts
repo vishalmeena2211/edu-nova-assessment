@@ -34,4 +34,24 @@ export type Transaction = {
     return_date: Date | null;
 };
 
+//Error type
+
+export interface Error {
+    message: string
+}
+
+//DateRange type
+export interface DateRange {
+    from: Date;
+    to: Date;
+}
+
+//ReportResult type
+export interface ReportResult {
+    totalIssues?: number;
+    currentlyIssuedTo?: string;
+    history?: Transaction[];
+    totalRent?: number;
+    issuedBooks?: Transaction[];
+}
 

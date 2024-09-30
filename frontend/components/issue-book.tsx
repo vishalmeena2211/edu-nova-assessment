@@ -2,7 +2,7 @@
 import { useState, FormEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
@@ -79,20 +79,7 @@ export default function IssueBookForm() {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="bookId">Book Name</Label>
-                            <Select name="bookId">
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select a book" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {availableBooks?.map((book) => (
-                                        <SelectItem key={book._id} value={book._id}>{book.book_name}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
+                    <div className="grid grid-cols-1 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="userId">User</Label>
                             <Select name="userId">
@@ -100,9 +87,28 @@ export default function IssueBookForm() {
                                     <SelectValue placeholder="Select a user" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {users.map((user) => (
-                                        <SelectItem key={user._id} value={user._id}>{user.name} ({user.email})</SelectItem>
-                                    ))}
+                                    <SelectGroup>
+                                        <SelectLabel>Users</SelectLabel>
+                                        {users.map((user) => (
+                                            <SelectItem key={user._id} value={user._id}>{user.name} ({user.email})</SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="bookId">Book Name</Label>
+                            <Select name="bookId">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a book" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Books</SelectLabel>
+                                        {availableBooks?.map((book) => (
+                                            <SelectItem key={book._id} value={book._id}>{book.book_name}</SelectItem>
+                                        ))}
+                                    </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>

@@ -1,4 +1,3 @@
-// const BASE_URL = process.env.API_BASE_URL;
 const BASE_URL = "https://edu-nova-assessment.onrender.com/api/v1";
 
 // Book Endpoints

@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Loader2 } from "lucide-react"
-import axios from "axios"
-import { Book, SearchParams } from "@/lib/types"
+import axios, { AxiosError } from "axios"
+import { Book, Error, SearchParams } from "@/lib/types"
 import { bookEndpoints } from "@/lib/endpoints"
+
 
 export default function AllBooksTable() {
     const [books, setBooks] = useState<Book[]>([])
@@ -35,8 +36,13 @@ export default function AllBooksTable() {
             const res = await axios.get(bookEndpoints.GET_ALL_BOOKS)
             setBooks(res.data)
         } catch (error) {
-            console.error("Error fetching books:", error)
-            setError("Failed to fetch books. Please try again.")
+            const errors = error as Error | AxiosError;
+            if (!axios.isAxiosError(error)) {
+                setError(errors.message)
+            }
+            else {
+                setError("An error occurred while fetching the data.")
+            }
         } finally {
             setLoading(false)
         }
@@ -62,8 +68,13 @@ export default function AllBooksTable() {
             const res = await axios.get(url)
             setBooks(res.data)
         } catch (error) {
-            console.error("Error searching books:", error)
-            setError("Failed to search books. Please try again.")
+            const errors = error as Error | AxiosError;
+            if (!axios.isAxiosError(error)) {
+                setError(errors.message)
+            }
+            else {
+                setError("An error occurred while fetching the data.")
+            }
         } finally {
             setLoading(false)
         }

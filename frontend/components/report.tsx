@@ -3,27 +3,15 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import axios from "axios";
-import { Book, Transaction, User } from "@/lib/types";
+import { Book, DateRange, ReportResult, User } from "@/lib/types";
 import { bookEndpoints, userEndpoints, transactionEndpoints } from "@/lib/endpoints";
 
-interface DateRange {
-    from: Date;
-    to: Date;
-}
-
-interface ReportResult {
-    totalIssues?: number;
-    currentlyIssuedTo?: string;
-    history?: Transaction[];
-    totalRent?: number;
-    issuedBooks?: Transaction[];
-}
 
 export default function ReportsForm() {
     const [reportType, setReportType] = useState<string>("");
@@ -52,8 +40,8 @@ export default function ReportsForm() {
                 console.error('Failed to fetch users:', error);
             }
         }
-        fetchUsers();
-        fetchBooks();
+
+        Promise.all([fetchBooks(), fetchUsers()]);
     }, []);
 
     // Generate report based on selected type
@@ -109,7 +97,7 @@ export default function ReportsForm() {
                             <SelectTrigger>
                                 <SelectValue placeholder="Select report type" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="max-h-52">
                                 <SelectItem value="bookHistory">Book History</SelectItem>
                                 <SelectItem value="bookRent">Book Total Rent</SelectItem>
                                 <SelectItem value="userBooks">Users Issued Books</SelectItem>
@@ -125,9 +113,12 @@ export default function ReportsForm() {
                                     <SelectValue placeholder="Select a book" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {books.map((book) => (
-                                        <SelectItem key={book._id} value={book.book_name}>{book.book_name}</SelectItem>
-                                    ))}
+                                    <SelectGroup>
+                                        <SelectLabel>Books</SelectLabel>
+                                        {books.map((book) => (
+                                            <SelectItem key={book._id} value={book.book_name}>{book.book_name}</SelectItem>
+                                        ))}
+                                    </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -140,9 +131,12 @@ export default function ReportsForm() {
                                     <SelectValue placeholder="Select a user" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {users.map((user) => (
-                                        <SelectItem key={user._id} value={user._id}>{user.name} ({user.email})</SelectItem>
-                                    ))}
+                                    <SelectGroup>
+                                        <SelectLabel>Users</SelectLabel>
+                                        {users.map((user) => (
+                                            <SelectItem key={user._id} value={user._id}>{user.name} ({user.email})</SelectItem>
+                                        ))}
+                                    </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>

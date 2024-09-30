@@ -1,60 +1,62 @@
-# Project Title
-# Project Name
+# EduNova Assessment - Library Management System
 
-A brief description of what this project does and who it's for.
+This project is a Library Management System built using Next.js for the frontend and Node.js for the backend. The system allows users to manage library resources efficiently.
 
 ## Table of Contents
-
 - [Installation](#installation)
 - [Usage](#usage)
+- [Features](#features)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Installation
 
-1. Clone the repo:
-    ```sh
+1. Clone the repository:
+    ```bash
     git clone https://github.com/vishalmeena2211/edu-nova-assessment.git
     ```
-2. Install dependencies:
-    ```sh
+2. Navigate to the frontend project directory:
+    ```bash
+    cd edu-nova-assessment/frontend
+    ```
+3. Install frontend dependencies:
+    ```bash
+    npm install
+    ```
+4. Navigate to the backend project directory:
+    ```bash
+    cd ../backend
+    ```
+5. Install backend dependencies:
+    ```bash
     npm install
     ```
 
 ## Usage
 
-Provide instructions and examples for using your Next.js and Express project. For example:
-
-1. Start the development server:
-    ```sh
+1. Start the backend server:
+    ```bash
+    npm run start
+    ```
+2. Start the frontend development server:
+    ```bash
+    cd ../frontend
     npm run dev
     ```
-2. Build for production:
-    ```sh
-    npm run build
-    ```
-3. Start the production server:
-    ```sh
-    npm start
-    ```
+3. Open your browser and navigate to `http://localhost:3000`.
+
+## Features
+
+- View all books and users
+- Search for books by term, name, range of rent, or category
+- Issue and return book functionality
+- Rent generation functionality
+- Report generation
 
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - your_email@example.com
-
-Project Link: [https://github.com/vishalmeena2211/edu-nova-assessment.git](https://github.com/vishalmeena2211/edu-nova-assessment.git)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
