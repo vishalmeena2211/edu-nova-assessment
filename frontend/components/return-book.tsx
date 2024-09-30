@@ -20,6 +20,7 @@ export default function ReturnBookForm() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
     const [returnedTransaction, setReturnedTransaction] = useState<Transaction | null>(null);
+    const [selectedTransactionId, setSelectedTransactionId] = useState<string>("");
 
     // Fetch transactions on component mount
     useEffect(() => {
@@ -38,6 +39,7 @@ export default function ReturnBookForm() {
     const handleTransactionSelection = (userId: string) => {
         const transaction = transactions.find(t => t.user_id === userId) || null;
         setSelectedTransaction(transaction);
+        setSelectedTransactionId(userId);
     };
 
     // Handle form submission
@@ -55,6 +57,7 @@ export default function ReturnBookForm() {
                 const newReturnedTransaction: Transaction = response.data.transaction;
                 setReturnedTransaction(newReturnedTransaction);
                 setSelectedTransaction(null);
+                setSelectedTransactionId("");
                 setReturnDate(new Date());
             } catch (error) {
                 console.error("Failed to return book:", error);
@@ -72,7 +75,7 @@ export default function ReturnBookForm() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="transactionId">Transaction</Label>
-                        <Select name="transactionId" onValueChange={handleTransactionSelection}>
+                        <Select name="transactionId" value={selectedTransactionId} onValueChange={handleTransactionSelection}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select a transaction" />
                             </SelectTrigger>
@@ -125,7 +128,7 @@ export default function ReturnBookForm() {
                     <div className="w-full p-4 bg-muted/80 rounded-md">
                         <h3 className="font-bold ">Book Returned Successfully</h3>
                         <p>Book: {returnedTransaction.book_name}</p>
-                        <p>User ID: {returnedTransaction.user_id}</p>
+                        <p>User Name: {returnedTransaction.user_name}</p>
                         {returnedTransaction.return_date && <p>Return Date: {format(returnedTransaction.return_date, 'yyyy-MM-dd')}</p>}
                         <p>Rent Paid: ${returnedTransaction.rent.toFixed(2)}</p>
                     </div>

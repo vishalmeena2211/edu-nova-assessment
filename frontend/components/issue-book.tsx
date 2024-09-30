@@ -18,6 +18,8 @@ export default function IssueBookForm() {
     const [transaction, setTransaction] = useState<Transaction | null>(null);
     const [availableBooks, setAvailableBooks] = useState<Book[]>([]);
     const [users, setUsers] = useState<User[]>([]);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
 
     // Fetch users on component mount
     useEffect(() => {
@@ -50,12 +52,9 @@ export default function IssueBookForm() {
     // Handle form submission
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-        const bookId = formData.get("bookId") as string;
-        const userId = formData.get("userId") as string;
 
-        const book = availableBooks.find(b => b._id === bookId);
-        const user = users.find(u => u._id === userId);
+        const book = availableBooks.find(b => b._id === selectedBookId);
+        const user = users.find(u => u._id === selectedUserId);
         if (!book || !user) return;
 
         try {
@@ -66,9 +65,10 @@ export default function IssueBookForm() {
             });
 
             setTransaction(response.data.transaction);
-            //need to clear all field in form
+            // Clear all fields in form
             setIssueDate(new Date());
-            event.currentTarget.reset();
+            setSelectedUserId(null);
+            setSelectedBookId(null);
         } catch (error) {
             console.error('Error issuing book:', error);
         }
@@ -85,7 +85,7 @@ export default function IssueBookForm() {
                     <div className="grid grid-cols-1 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="userId">User</Label>
-                            <Select name="userId">
+                            <Select name="userId" value={selectedUserId || ""} onValueChange={setSelectedUserId}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a user" />
                                 </SelectTrigger>
@@ -101,7 +101,7 @@ export default function IssueBookForm() {
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="bookId">Book Name</Label>
-                            <Select name="bookId">
+                            <Select name="bookId" value={selectedBookId || ""} onValueChange={setSelectedBookId}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a book" />
                                 </SelectTrigger>
