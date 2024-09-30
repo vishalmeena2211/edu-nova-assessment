@@ -32,7 +32,7 @@ export default function ReturnBookForm() {
             }
         }
         fetchTransactions();
-    }, []);
+    }, [returnedTransaction]);
 
     // Handle transaction selection
     const handleTransactionSelection = (userId: string) => {
@@ -54,6 +54,8 @@ export default function ReturnBookForm() {
 
                 const newReturnedTransaction: Transaction = response.data.transaction;
                 setReturnedTransaction(newReturnedTransaction);
+                setSelectedTransaction(null);
+                setReturnDate(new Date());
             } catch (error) {
                 console.error("Failed to return book:", error);
             }

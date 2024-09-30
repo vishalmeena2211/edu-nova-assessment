@@ -31,7 +31,7 @@ export default function IssueBookForm() {
         }
 
         fetchUsers();
-    }, []);
+    }, [transaction]);
 
     // Fetch available books on component mount
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function IssueBookForm() {
         }
 
         fetchBooks();
-    }, []);
+    }, [transaction]);
 
     // Handle form submission
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -66,6 +66,9 @@ export default function IssueBookForm() {
             });
 
             setTransaction(response.data.transaction);
+            //need to clear all field in form
+            setIssueDate(new Date());
+            event.currentTarget.reset();
         } catch (error) {
             console.error('Error issuing book:', error);
         }
